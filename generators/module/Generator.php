@@ -9,10 +9,9 @@
 namespace app\generators\module;
 
 use yii\gii\CodeFile;
-use \yii\gii\generators\module\Generator as BaseGenerator;
-use yii\helpers\StringHelper;
+use yii\helpers\ArrayHelper;
 
-class Generator extends BaseGenerator
+class Generator extends \yii\gii\generators\module\Generator
 {
 
     public $baseControllerClass = 'yii\web\Controller';
@@ -22,7 +21,7 @@ class Generator extends BaseGenerator
      */
     public function requiredTemplates()
     {
-        return ['module.php', 'base-controller.php', 'default-controller.php', 'view.php'];
+        return ArrayHelper::merge(parent::requiredTemplates(), ['base-controller.php']);
     }
 
     /**
@@ -30,28 +29,31 @@ class Generator extends BaseGenerator
      */
     public function generate()
     {
-        $files = [];
+        $files = parent::generate();
+
         $modulePath = $this->getModulePath();
-        $files[] = new CodeFile(
-            $modulePath . '/' . StringHelper::basename($this->moduleClass) . '.php',
-            $this->render("module.php")
-        );
+
         $files[] = new CodeFile(
             $modulePath . '/components/Controller.php',
             $this->render("base-controller.php")
-        );
-        $files[] = new CodeFile(
-            $modulePath . '/controllers/DefaultController.php',
-            $this->render("default-controller.php")
-        );
-        $files[] = new CodeFile(
-            $modulePath . '/views/default/index.php',
-            $this->render("view.php")
         );
 
         return $files;
     }
 
+
+    /**
+     * Returns the view file for the input form of the generator.
+     * The default implementation will return the "form.php" file under the directory
+     * that contains the generator class file.
+     * @return string the view file for the input form of the generator.
+     */
+    public function formView()
+    {
+        $class = new \ReflectionClass(new parent());
+
+        return dirname($class->getFileName()) . '/form.php';
+    }
 
 
     /**
