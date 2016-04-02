@@ -13,14 +13,9 @@ return [
         ],
     ],
     'components' => [
-        'db' => [
-            'dsn' => 'mysql:host=localhost;dbname=yii2_basic_tests',
-        ],
+        'db' => require(__DIR__ . '/db.php'),
         'mailer' => [
             'useFileTransport' => true,
-        ],
-        'urlManager' => [
-            'showScriptName' => true,
         ],
     ],
 ];
