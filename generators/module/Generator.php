@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: ox404fff
- * Date: 19.03.16
- * Time: 13:21
+ * @link https://github.com/ox404fff/base/
+ * @author ox404fff
  */
 
 namespace app\generators\module;
@@ -21,7 +19,9 @@ class Generator extends \yii\gii\generators\module\Generator
      */
     public function requiredTemplates()
     {
-        return ArrayHelper::merge(parent::requiredTemplates(), ['base-controller.php']);
+        return ArrayHelper::merge(parent::requiredTemplates(), [
+            'base-controller.php'
+        ]);
     }
 
     /**

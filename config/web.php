@@ -68,6 +68,9 @@ if (YII_ENV_DEV) {
             'module' => [
                 'class' => 'app\generators\module\Generator', 'baseControllerClass' => 'app\base\web\Controller'
             ],
+            'model' => [
+                'class' => 'app\generators\model\Generator', 'baseClass' => 'app\base\db\ActiveRecord', 'queryBaseClass' => 'app\base\db\ActiveQuery'
+            ],
         ]
     ];
 }
