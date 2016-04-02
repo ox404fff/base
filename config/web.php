@@ -37,17 +37,18 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
-        /*
+        'db' => require(__DIR__ . '/../../base.db.php'),
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'class' => 'yii\web\UrlManager',
             'showScriptName' => false,
-            'rules' => [
-            ],
+            'enablePrettyUrl' => true,
+            'rules' => require(__DIR__ . '/routes.php'),
         ],
-        */
     ],
     'params' => $params,
+    'aliases' => [
+        '@test' => dirname(__DIR__). '/tests/codeception/unit',
+    ]
 ];
 
 if (YII_ENV_DEV) {
