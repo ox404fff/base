@@ -6,7 +6,7 @@
 /* @var $this yii\web\View */
 /* @var $generator app\generators\module\Generator */
 
-echo "<?php\n";
+echo "<?\n";
 ?>
 
 namespace <?= $generator->getControllerNamespace() ?>;

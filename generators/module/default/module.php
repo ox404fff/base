@@ -11,7 +11,7 @@ $pos = strrpos($className, '\\');
 $ns = ltrim(substr($className, 0, $pos), '\\');
 $className = substr($className, $pos + 1);
 
-echo "<?php\n";
+echo "<?\n";
 ?>
 
 namespace <?= $ns ?>;

@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 /* @var $generator app\generators\module\Generator */
 ?>
-<?= "<?php\n"; ?>
+<?= "<?\n"; ?>
 /* @var $this yii\web\View */
 <?= "?>\n"; ?>
 
