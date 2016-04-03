@@ -22,6 +22,10 @@ $config = [
                 ],
             ],
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'db' => $db,
+        ],
         'db' => $db,
     ],
     'params' => $params,
