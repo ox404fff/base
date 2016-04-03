@@ -4,6 +4,9 @@
  */
 return [
     'language' => 'en-US',
+    'aliases' => [
+        '@test' => realpath(__DIR__. '/../unit'),
+    ],
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\faker\FixtureController',

@@ -46,9 +46,6 @@ $config = [
         ],
     ],
     'params' => $params,
-    'aliases' => [
-        '@test' => dirname(__DIR__). '/tests/codeception/unit',
-    ]
 ];
 
 if (YII_ENV_DEV) {
