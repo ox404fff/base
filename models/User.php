@@ -2,10 +2,12 @@
 
 namespace app\models;
 
+use app\modules\cabinet\components\events\ConfirmEmailEvent;
 use app\base\behaviors\StaticCacheBehavior;
 use app\base\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
+use yii\base\Exception;
 
 
 /**
@@ -276,5 +278,22 @@ class User extends ActiveRecord implements IdentityInterface
         return !empty($this->password);
     }
 
+
+    /**
+     * Activate user if not active
+     *
+     * @param ConfirmEmailEvent $event
+     * @throws Exception
+     */
+    public static function onConfirmEmail(ConfirmEmailEvent $event)
+    {
+        if (!$event->user->isActive()) {
+            $event->user->type = User::TYPE_USER;
+
+            if (!$event->user->save()) {
+                throw new Exception('Email confirmation is temporarily unavailable');
+            }
+        }
+    }
 
 }

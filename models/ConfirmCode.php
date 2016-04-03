@@ -259,4 +259,24 @@ class ConfirmCode extends ActiveRecord
     }
 
 
+    /**
+     * Event when sending confirm email code
+     *
+     * @param ChangeEmailEvent $event
+     */
+    public static function onSendConfirmEmail(ChangeEmailEvent $event)
+    {
+        ConfirmCode::clearCodes(ConfirmCode::TYPE_CONFIRM_EMAIL, $event->user->id);
+    }
+
+
+    /**
+     * Event used confirm email code
+     *
+     * @param ConfirmEmailEvent $event
+     */
+    public static function onConfirmEmail(ConfirmEmailEvent $event)
+    {
+        ConfirmCode::clearCodes(ConfirmCode::TYPE_CONFIRM_EMAIL, $event->user->id);
+    }
 }

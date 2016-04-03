@@ -61,6 +61,14 @@ $config = [
         ],
     ],
     'params' => $params,
+    'modules' => [
+        'auth' => [
+            'class' => 'app\modules\auth\Module',
+        ],
+        'cabinet' => [
+            'class' => 'app\modules\cabinet\Module',
+        ]
+    ]
 ];
 
 if (YII_ENV_DEV) {
