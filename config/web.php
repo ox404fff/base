@@ -1,4 +1,4 @@
-<?php
+<?
 
 $params = require(__DIR__ . '/params.php');
 
@@ -15,8 +15,10 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'class'              => 'app\base\web\UserWeb',
+            'identityClass'      => 'app\models\User',
+            'loginUrl'           => ['auth/authorisation/login'],
+            'enableAutoLogin'    => true,
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
@@ -48,6 +50,14 @@ $config = [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'rules' => require(__DIR__ . '/routes.php'),
+        ],
+        'mainMenu' => [
+            'class' => 'app\base\components\Menu',
+            'items' => require(__DIR__ . '/../menu/mainMenuItems.php'),
+        ],
+        'adminMenu' => [
+            'class' => 'app\base\components\Menu',
+            'items' => require(__DIR__ . '/../menu/adminMenuItems.php'),
         ],
     ],
     'params' => $params,

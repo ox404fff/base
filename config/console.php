@@ -11,6 +11,10 @@ $config = [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'app\commands',
     'components' => [
+        'user' => [
+            'class'              => 'app\base\web\UserWeb',
+            'administratorEmail' => 'ox404fff@gmail.com',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

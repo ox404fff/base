@@ -1,4 +1,8 @@
-<?php
+<?
+/**
+ * @link https://github.com/ox404fff/base/
+ * @author ox404fff
+ */
 
 namespace app\base\rbac;
 
