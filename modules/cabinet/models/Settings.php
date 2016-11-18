@@ -74,8 +74,8 @@ class Settings extends ActiveRecord
             ],
             'life_time' => [
                 'class'              => LifeTimeBehavior::className(),
-                'createdAtAttribute' => self::ATTRIBUTE_CREATED_AT,
-                'lifeTimesTypes'     => self::$lifeTimeByTypes
+                'createdAtAttribute' => static::ATTRIBUTE_CREATED_AT,
+                'lifeTimesTypes'     => static::$lifeTimeByTypes
             ]
         ]);
     }

@@ -65,8 +65,8 @@ class ActiveRecord extends BaseActiveRecord
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => [self::ATTRIBUTE_CREATED_AT, self::ATTRIBUTE_UPDATED_AT],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => [self::ATTRIBUTE_UPDATED_AT],
+                    ActiveRecord::EVENT_BEFORE_INSERT => [static::ATTRIBUTE_CREATED_AT, static::ATTRIBUTE_UPDATED_AT],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => [static::ATTRIBUTE_UPDATED_AT],
                 ],
             ]
         ];
@@ -96,9 +96,9 @@ class ActiveRecord extends BaseActiveRecord
         /**
          * @var ActiveQuery $activeQuery
          */
-        $activeQuery->setIsSoftDelete(self::$isSoftDelete);
+        $activeQuery->setIsSoftDelete(static::$isSoftDelete);
 
-        $activeQuery->setSoftDeleteAttribute(self::ATTRIBUTE_IS_DELETED);
+        $activeQuery->setSoftDeleteAttribute(static::ATTRIBUTE_IS_DELETED);
 
         return $activeQuery;
     }
@@ -149,8 +149,8 @@ class ActiveRecord extends BaseActiveRecord
      */
     public static function deleteAll($condition = '', $params = [])
     {
-        if (self::$isSoftDelete) {
-            return self::updateAll([self::ATTRIBUTE_IS_DELETED => true, self::ATTRIBUTE_DELETED_AT => time()], $condition, $params);
+        if (static::$isSoftDelete) {
+            return self::updateAll([static::ATTRIBUTE_IS_DELETED => true, static::ATTRIBUTE_DELETED_AT => time()], $condition, $params);
         } else {
             return parent::deleteAll($condition, $params);
         }
@@ -170,8 +170,8 @@ class ActiveRecord extends BaseActiveRecord
 
         $result = parent::delete();
         if ($result) {
-            $this->setAttribute(self::ATTRIBUTE_IS_DELETED, true);
-            $this->setAttribute(self::ATTRIBUTE_DELETED_AT, time());
+            $this->setAttribute(static::ATTRIBUTE_IS_DELETED, true);
+            $this->setAttribute(static::ATTRIBUTE_DELETED_AT, time());
         }
         return $result;
     }
@@ -184,7 +184,7 @@ class ActiveRecord extends BaseActiveRecord
      */
     public function isDeleted()
     {
-        return (bool) $this->getAttribute(self::ATTRIBUTE_IS_DELETED);
+        return (bool) $this->getAttribute(static::ATTRIBUTE_IS_DELETED);
     }
 
 
@@ -197,12 +197,12 @@ class ActiveRecord extends BaseActiveRecord
      */
     private static function _modifyCondition($condition, &$params)
     {
-        if (self::$isSoftDelete) {
+        if (static::$isSoftDelete) {
             $queryBuilder = static::getDb()->getQueryBuilder();
 
             $condition = $queryBuilder->buildCondition($condition, $params);
 
-            return $queryBuilder->buildAndCondition('AND', [$condition, [self::ATTRIBUTE_IS_DELETED => false]], $params);
+            return $queryBuilder->buildAndCondition('AND', [$condition, [static::ATTRIBUTE_IS_DELETED => false]], $params);
         } else {
             return $condition;
         }
@@ -217,8 +217,8 @@ class ActiveRecord extends BaseActiveRecord
      */
     private static function _modifyAttributes($attributes)
     {
-        if (!array_key_exists(self::ATTRIBUTE_UPDATED_AT, $attributes)) {
-            $attributes[self::ATTRIBUTE_UPDATED_AT] = time();
+        if (!array_key_exists(static::ATTRIBUTE_UPDATED_AT, $attributes)) {
+            $attributes[static::ATTRIBUTE_UPDATED_AT] = time();
         }
         return $attributes;
     }
